@@ -50,13 +50,13 @@ def initalize_game():
         # Player 2's Treasure
         elif i==13:
             game_array.append(Pool(0, "Treasure"))
-        
+
         # Pools
         else:
             game_array.append(Pool(4, "Pool"))
 
     return game_array
-    
+
 
 def distribute_pieces(game_array, selection, turn):
     piece_count, temp_count = game_array[selection].number, game_array[selection].number
@@ -74,7 +74,7 @@ def distribute_pieces(game_array, selection, turn):
         last_placed = selection + 1
 
     else:
-        placement_index = selection    
+        placement_index = selection
         for i in range(0, temp_count):
             placement_index = (selection + i) % 14
             if i == 0:
@@ -110,7 +110,7 @@ def distribute_pieces(game_array, selection, turn):
             game_array[12-last_placed].set(0)
     return game_array, last_placed, is_valid
 
-   
+
 def minimax(game_array, depth, minimize_or_maximize):
 
     if minimize_or_maximize:
@@ -240,7 +240,7 @@ def main():
             anchors={
                     'center': 'center',
                     'left': 'left'})
-               
+
     clock = pygame.time.Clock()
     is_running = True
 
@@ -274,7 +274,7 @@ def main():
                         selection=4
 
                     elif event.ui_element == player_pool_5:
-                        selection=5                
+                        selection=5
 
                     if selection != None:
                         if selection > 5 or game_array[selection].type == "Treasure" :
@@ -284,7 +284,7 @@ def main():
 
                         if not is_valid:
                             continue
-                        
+
                         print("Last Placed: " + str(last_placed))
 
                         # If the last placed piece is in the treasure, it's the player's turn again
@@ -314,7 +314,7 @@ def main():
 
                     # If the last placed piece is in the treasure, it's the computer's turn again
                     if last_placed == 13:
-                        turn = 0   
+                        turn = 0
                         print("\nComputer's Turn again, press computer treasure")
                         text = font.render("Computer's Turn Again, press computer treasure", True, green, blue)
 
@@ -350,7 +350,7 @@ def main():
             else:
                 wintext = winfont.render("Tie!", True, green, blue)
                 print("\n\n\nTie Game!")
-            
+
             window_surface.blit(wintext, winRect)
             pygame.display.update()
             sleep(5) # Sleep for 5 secs before exiting
@@ -370,7 +370,7 @@ def draw_player_circles(game_array, window_surface):
                 pygame.draw.circle(window_surface, (200, 0, 0), (coordx+i*15, 470), 5, 10)
         coordx += 150
 
-  
+
 
     for i in range(game_array[6].number):
         if i > 20:
@@ -389,7 +389,7 @@ def draw_computer_circles(game_array, window_surface):
             elif i > 5:
                 pygame.draw.circle(window_surface, (200, 0, 0), (coordx+(i-6)*15, 110), 5, 10)
             else:
-                pygame.draw.circle(window_surface, (200, 0, 0), (coordx+i*15, 70), 5, 10)  
+                pygame.draw.circle(window_surface, (200, 0, 0), (coordx+i*15, 70), 5, 10)
         coordx += 150
 
     for i in range(game_array[13].number):
@@ -399,5 +399,7 @@ def draw_computer_circles(game_array, window_surface):
             pygame.draw.circle(window_surface, (200, 0, 0), (100+(i-11)*15, 100), 5, 10)
         else:
             pygame.draw.circle(window_surface, (200, 0, 0), (100+i*15, 70), 5, 10)
-            
-main()
+
+
+if __name__ == '__main__':
+    main()
